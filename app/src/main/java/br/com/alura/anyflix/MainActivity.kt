@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
             val movies = service.findAll()
-            Log.i("MainActivity", "onCreate: $movies")
         }
         setContent {
             AnyFlixTheme {
