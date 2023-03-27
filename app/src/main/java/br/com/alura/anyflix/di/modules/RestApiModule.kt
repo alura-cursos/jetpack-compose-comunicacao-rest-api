@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -16,7 +17,8 @@ object RestApiModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/")
+            .baseUrl("http://192.168.15.8:8080/")
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
 
