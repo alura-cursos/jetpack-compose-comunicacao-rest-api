@@ -1,7 +1,6 @@
 package br.com.alura.anyflix
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -30,7 +29,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -39,25 +37,16 @@ import br.com.alura.anyflix.navigation.homeRoute
 import br.com.alura.anyflix.navigation.movieDetailsRouteFullpath
 import br.com.alura.anyflix.navigation.myListRoute
 import br.com.alura.anyflix.navigation.navigateToBottomAppBarItem
-import br.com.alura.anyflix.network.services.MovieService
 import br.com.alura.anyflix.ui.components.AnyflixBottomAppBar
 import br.com.alura.anyflix.ui.components.BottomAppBarItem
 import br.com.alura.anyflix.ui.theme.AnyFlixTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var service: MovieService
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            val movies = service.findAll()
-        }
         setContent {
             AnyFlixTheme {
                 Surface(
@@ -114,9 +103,11 @@ fun AnyflixApp(
                 myListRoute -> {
                     Text("Minha lista")
                 }
+
                 movieDetailsRouteFullpath -> {
                     Text("Informações")
                 }
+
                 homeRoute -> {
                     Image(
                         painterResource(id = R.drawable.anyflix),

@@ -22,46 +22,17 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Volatile
-    private var INSTANCE: AnyflixDatabase? = null
-
-    class AnyflixDatabaseCallback(
-        private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch {
-                    sampleMovies.forEach { movie ->
-                        database.movieDao().save(movie.toMovieEntity())
-                    }
-                }
-            }
-        }
-    }
-
-    @Provides
-    fun provideAnyflixDatabaseCallback(): AnyflixDatabaseCallback {
-        val scope = CoroutineScope(IO)
-        return AnyflixDatabaseCallback(scope)
-    }
-
     @Singleton
     @Provides
     fun provideDatabase(
         @ApplicationContext context: Context,
-        callback: AnyflixDatabaseCallback
     ): AnyflixDatabase {
-        return INSTANCE ?: synchronized(this) {
-            Room.databaseBuilder(
-                context,
-                AnyflixDatabase::class.java,
-                "anyflix.db"
-            ).addCallback(callback)
-                .fallbackToDestructiveMigration()
-                .build()
-                .also { INSTANCE = it }
-        }
+        return Room.databaseBuilder(
+            context,
+            AnyflixDatabase::class.java,
+            "anyflix.db"
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

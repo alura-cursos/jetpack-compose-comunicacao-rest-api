@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import br.com.alura.anyflix.database.dao.MovieDao
 import br.com.alura.anyflix.database.entities.toMovie
 import br.com.alura.anyflix.model.Movie
+import br.com.alura.anyflix.network.services.MovieService
+import br.com.alura.anyflix.network.services.toMovie
 import br.com.alura.anyflix.ui.uistates.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val dao: MovieDao
+    private val dao: MovieDao,
+    private val service: MovieService
 ) : ViewModel() {
 
     private var currentUiStateJob: Job? = null
@@ -30,34 +33,36 @@ class HomeViewModel @Inject constructor(
     private fun loadUiState() {
         currentUiStateJob?.cancel()
         currentUiStateJob = viewModelScope.launch {
-            dao.findAll()
-                .onStart {
-                    _uiState.update { HomeUiState.Loading }
+//            dao.findAll()
+            flow {
+                val response = service.findAll()
+                val movies = response.map { it.toMovie() }
+                emit(movies)
+            }.onStart {
+                _uiState.update { HomeUiState.Loading }
+            }.map { movies ->
+                if (movies.isEmpty()) {
+                    emptyMap()
+                } else {
+                    createSections(movies)
                 }
-                .map { entities ->
-                    val movies = entities.map { it.toMovie() }
-                    if (movies.isEmpty()) {
-                        emptyMap()
-                    } else {
-                        createSections(movies)
+            }.collectLatest { sections ->
+                if (sections.isEmpty()) {
+                    _uiState.update {
+                        HomeUiState.Empty
                     }
-                }.collectLatest { sections ->
-                    if (sections.isEmpty()) {
-                        _uiState.update {
-                            HomeUiState.Empty
-                        }
-                    } else {
-                        val movie = sections
-                            .entries.random()
-                            .value.random()
-                        _uiState.update {
-                            HomeUiState.Success(
-                                sections = sections,
-                                mainBannerMovie = movie
-                            )
-                        }
+                } else {
+                    val movie = sections
+                        .entries.random()
+                        .value.random()
+                    _uiState.update {
+                        HomeUiState.Success(
+                            sections = sections,
+                            mainBannerMovie = movie
+                        )
                     }
                 }
+            }
         }
     }
 
