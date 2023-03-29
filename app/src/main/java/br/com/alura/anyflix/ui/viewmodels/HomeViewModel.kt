@@ -2,11 +2,6 @@ package br.com.alura.anyflix.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.alura.anyflix.database.dao.MovieDao
-import br.com.alura.anyflix.database.entities.toMovie
-import br.com.alura.anyflix.model.Movie
-import br.com.alura.anyflix.network.services.MovieService
-import br.com.alura.anyflix.network.services.toMovie
 import br.com.alura.anyflix.repositories.MovieRepository
 import br.com.alura.anyflix.ui.uistates.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,15 +28,8 @@ class HomeViewModel @Inject constructor(
     private fun loadUiState() {
         currentUiStateJob?.cancel()
         currentUiStateJob = viewModelScope.launch {
-//            dao.findAll()
-            repository.findAll().onStart {
+            repository.findSections().onStart {
                 _uiState.update { HomeUiState.Loading }
-            }.map { movies ->
-                if (movies.isEmpty()) {
-                    emptyMap()
-                } else {
-                    createSections(movies)
-                }
             }.collectLatest { sections ->
                 if (sections.isEmpty()) {
                     _uiState.update {
@@ -65,11 +53,5 @@ class HomeViewModel @Inject constructor(
     fun loadSections() {
         loadUiState()
     }
-
-    private fun createSections(movies: List<Movie>) = mapOf(
-        "Em alta" to movies.shuffled().take(7),
-        "Novidades" to movies.shuffled().take(7),
-        "Continue assistindo" to movies.shuffled().take(7)
-    )
 
 }
