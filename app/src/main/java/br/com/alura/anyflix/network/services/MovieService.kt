@@ -2,7 +2,9 @@ package br.com.alura.anyflix.network.services
 
 import br.com.alura.anyflix.database.entities.MovieEntity
 import br.com.alura.anyflix.model.Movie
+import br.com.alura.anyflix.repositories.MovieRepository
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 data class MovieResponse(
     val id: String,
@@ -42,5 +44,8 @@ interface MovieService {
 
     @GET("movies/myList")
     suspend fun myList(): List<MovieResponse>
+
+    @GET("movies/{id}")
+    suspend fun findMovieById(@Path("id") id: String): MovieResponse
 
 }

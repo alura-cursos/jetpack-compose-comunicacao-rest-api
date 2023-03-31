@@ -65,7 +65,33 @@ class MovieRepository @Inject constructor(
             .map { entities -> entities.map { it.toMovie() } }
     }
 
+    suspend fun findMovieById(id: String): Flow<Movie> {
+
+        CoroutineScope(coroutineContext).launch {
+            try {
+                val response = service.findMovieById(id)
+                val entity = response.toMovieEntity()
+                dao.save(entity)
+            } catch (e: ConnectException) {
+                Log.e("MovieRepository", "findSections: falha ao conectar na API", e)
+            }
+        }
+
+        return dao.findMovieById(id)
+            .map {
+                it.toMovie()
+            }
+    }
+
+    fun suggestedMovies(id: String): Flow<List<Movie>> {
+        return dao.suggestedMovies(id)
+    }
+
     fun removeFromMyList(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    fun addToMyList(id: String) {
         TODO("Not yet implemented")
     }
 
