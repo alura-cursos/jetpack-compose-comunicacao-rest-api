@@ -11,8 +11,7 @@ data class MovieResponse(
     val year: Int,
     val plot: String,
     val inMyList: Boolean
-) {
-}
+)
 
 fun MovieResponse.toMovieEntity(): MovieEntity {
     return MovieEntity(
@@ -40,5 +39,8 @@ interface MovieService {
 
     @GET("movies")
     suspend fun findAll(): List<MovieResponse>
+
+    @GET("movies/myList")
+    suspend fun myList(): List<MovieResponse>
 
 }
