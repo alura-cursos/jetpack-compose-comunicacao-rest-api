@@ -15,7 +15,7 @@ fun AnyflixNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = homeRoute
+        startDestination = addressFormRoute
     ) {
         homeScreen(
             onNavigateToMovieDetails = { movie ->
@@ -49,6 +49,7 @@ fun AnyflixNavHost(
                 navController.navigateToMovieDetails(it.id)
             }
         )
+        addressFormScreen()
     }
 }
 
