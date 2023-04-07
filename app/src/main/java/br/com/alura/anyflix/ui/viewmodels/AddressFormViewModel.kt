@@ -4,17 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.alura.anyflix.model.Address
+import br.com.alura.anyflix.repositories.AddressRepository
 import br.com.alura.anyflix.ui.uistates.AddressFormUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val TAG = "AddressFormViewModel"
 
-class AddressFormViewModel : ViewModel() {
+@HiltViewModel
+class AddressFormViewModel @Inject constructor(
+    private val repository: AddressRepository
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AddressFormUiState())
     val uiState = _uiState.asStateFlow()
@@ -67,7 +73,16 @@ class AddressFormViewModel : ViewModel() {
         job.cancel()
         job = viewModelScope.launch {
             delay(2000)
-            Log.i(TAG, "searchAddress: $cep")
+            repository.findAddress(cep)?.let { address ->
+                _uiState.update {
+                    it.copy(
+                        logradouro = address.logradouro,
+                        bairro = address.bairro,
+                        cidade = address.cidade,
+                        estado = address.estado,
+                    )
+                }
+            }
         }
     }
 
