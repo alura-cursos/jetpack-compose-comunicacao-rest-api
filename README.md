@@ -14,21 +14,31 @@ App para simular uma plataforma de streaming de videos. O Anyflix oferece as seg
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-**Faça uma lista de tecnologias e técnicas utilizadas (a justificativa e descrição são opcionais)**:
+O App foi desenvolvido com as seguintes técnicas e 
 
-- `Funcionalidade 1`: descrição da funcionalidade 1
-- `Funcionalidade 2`: descrição da funcionalidade 2
-  - `Funcionalidade 2a`: descrição da funcionalidade 2a relacionada à funcionalidade 2
-- `Funcionalidade 3`: descrição da funcionalidade 3
+- `Hilt`: injeção de dependência
+- `Room`: salvar e buscar informação do banco de dados local
+- `ViewModel` e `uiState`: gerenciamento de estado
+- `Coroutine` e `Flow`: rodar as operações de maneira assíncrona e reativas
+- `Retrofit`: realizar requisições HTTP
+- `Repositório`: responsável em lidar com fontes de dados distintas: banco de dados (Room) e REST API (Retrofit)
+  - `Banco de dados`: Room
+  - `REST API`: Retrofit
+- `Jetpack Compose`: implementação da interface de usuário
 
 ## 📁 Acesso ao projeto
 
-**Indique como é possível baixar ou acessar o código fonte do projeto, seja projeto inicial ou final**
+Você pode [acessar o código fonte do projeto](https://github.com/alura-cursos/jetpack-compose-comunicacao-rest-api/tree/aula-4) ou [baixá-lo](https://github.com/alura-cursos/jetpack-compose-comunicacao-rest-api/archive/refs/heads/aula-4.zip).
 
 ## 🛠️ Abrir e rodar o projeto
 
-**Apresente as instruções necessárias para abrir e executar o projeto**
+Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
 
-## 📚 Mais informações do curso
+Open an Existing Project (ou alguma opção similar)
+Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+Por fim clique em OK
+O Android Studio deve executar algumas tasks do Gradle para configurar o projeto, aguarde até finalizar. Ao finalizar as tasks, você pode executar o App 🏆
+
+<!-- ## 📚 Mais informações do curso
 
 **Faça um CTA (_call to action_) para o curso do projeto**
