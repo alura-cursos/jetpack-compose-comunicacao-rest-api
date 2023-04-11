@@ -1,12 +1,27 @@
 # Anyflix
 
-App para simular uma plataforma de streaming de videos
 
-## ⚒️ projeto em desenvolvimento
-
-<!-- Descreva o que é o projeto e o que ele faz
 
 ## 🔨 Funcionalidades do projeto
+
+App para simular uma plataforma de streaming de videos. O Anyflix oferece as seguintes telas:
+
+- `Início`: mostra todos os filmes em seções
+- `Minha lista`: exibe todos os filmes adicionados na minha lista e permite remover os filmes da minha lista
+- `Detalhes do filme`: apresenta as informações do filme, como imagem, título, ano e enredo. Também, possibilita a adição ou remoção do filme na minha lista
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Indique quais são as funcionalidades e comportamentos do App
 
