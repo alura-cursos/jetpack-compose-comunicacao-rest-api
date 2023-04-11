@@ -1,6 +1,6 @@
 # Anyflix
 
-
+![Imagem de capa indicando ser o curso Jetpack Compose: comunicação com REST API](https://user-images.githubusercontent.com/8989346/231193820-decade74-da1e-467d-8480-f0651d403bd8.png)
 
 ## 🔨 Funcionalidades do projeto
 
@@ -10,24 +10,7 @@ App para simular uma plataforma de streaming de videos. O Anyflix oferece as seg
 - `Minha lista`: exibe todos os filmes adicionados na minha lista e permite remover os filmes da minha lista
 - `Detalhes do filme`: apresenta as informações do filme, como imagem, título, ano e enredo. Também, possibilita a adição ou remoção do filme na minha lista
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Indique quais são as funcionalidades e comportamentos do App
-
-Se possível, apresente um exemplo visual do projeto, seja gif, imagens ou vídeo, abaixo segue um exemplo:
-
-![](https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/raw/master/img/amostra.gif)
+![App Anyflix em execução](https://user-images.githubusercontent.com/8989346/231199569-89800b65-30c7-4eb2-b93d-c6732a044aee.gif)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
