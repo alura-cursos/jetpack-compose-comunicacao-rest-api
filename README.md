@@ -12,6 +12,13 @@ App para simular uma plataforma de streaming de videos. O Anyflix oferece as seg
 
 ![App Anyflix em execução](https://user-images.githubusercontent.com/8989346/231199569-89800b65-30c7-4eb2-b93d-c6732a044aee.gif)
 
+## Desafios
+
+- Buscando endereço pelo CEP automaticamente
+
+![App em execução exibindo o formulário com os campos para endereço, ao preencher o campo CEP, após 2 segundos, automaticamente o campo de logradouro, bairro, cidade e estado são preenchidos automaticamente](https://user-images.githubusercontent.com/8989346/232496380-398a1032-5300-4913-8b87-6d6927556c25.gif)
+
+
 ## ✔️ Técnicas e tecnologias utilizadas
 
 O App foi desenvolvido com as seguintes técnicas e 
