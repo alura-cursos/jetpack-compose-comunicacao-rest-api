@@ -1,9 +1,9 @@
-package br.com.alura.anyflix.network.services
+package br.com.alura.anyflix.network.responses
 
 import br.com.alura.anyflix.model.Address
-import retrofit2.http.GET
-import retrofit2.http.Path
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class AddressResponse(
     val logradouro: String,
     val bairro: String,
@@ -21,12 +21,3 @@ fun AddressResponse.toAddress() = Address(
     numero = "",
     complemento = ""
 )
-
-interface AddressService {
-
-    @GET("{cep}/json")
-    suspend fun findAddress(
-        @Path("cep") cep: String
-    ): AddressResponse
-
-}

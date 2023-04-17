@@ -1,11 +1,17 @@
 package br.com.alura.anyflix.di.modules
 
-import br.com.alura.anyflix.network.services.AddressService
 import br.com.alura.anyflix.network.services.MovieService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -47,15 +53,24 @@ object RestApiModule {
 
     @Provides
     @Singleton
-    fun provideAddressService(@ViacepRetrofit retrofit: Retrofit): AddressService {
-        return retrofit.create(AddressService::class.java)
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BODY)
+        }
     }
 
     @Provides
     @Singleton
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BODY)
+    fun provideHttpClient(): HttpClient {
+        return HttpClient(Android) {
+            install(Logging) {
+                level = LogLevel.ALL
+            }
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true
+                })
+            }
         }
     }
 
