@@ -12,7 +12,7 @@ App para simular uma plataforma de streaming de videos. O Anyflix oferece as seg
 
 ![App Anyflix em execução](https://user-images.githubusercontent.com/8989346/231199569-89800b65-30c7-4eb2-b93d-c6732a044aee.gif)
 
-## Desafios
+## 🎯 Desafios
 
 - Buscando endereço pelo CEP automaticamente
 
